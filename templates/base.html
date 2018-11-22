@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>扒鸡头条</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="icon" href="../static/img/favicon.ico" type="image/x-icon"/>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/static/ckeditor/ckeditor-init.js"></script>
+
+
+
+    <style>
+        .active_lis {
+            background-color: red;
+        }
+
+        .sy {
+            background-color: #1da7ee;
+        }
+        #dx{
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="navbar-brand">
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a class="sy" href="/">热闻 ⋅ 扒鸡头条</a></li>
+            {% for row in types|slice:'0:8' %}
+                {% if row.id == type_id %}
+                    <li><a class="active_lis" href="/">{{ row.name }}</a></li>
+                {% else %}
+                    <li><a href="/?type_id={{ row.id }}">{{ row.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if user.id %}
+                <li>
+                    <a href="/media/{{ user.image }}" target="_blank">
+                        <div style="width: 20px;height: 20px;">
+                            <img class="img-responsive" src="/media/{{ user.image }}" alt="{{ user.username }}"/>
+                        </div>
+                    </a>
+                </li>
+
+                <li><a href="/setuser/{{ user.id }}">{{ user.username }}</a></li>
+                <li><a href="/logout">登出</a></li>
+            {% else %}
+                <li><a href="/login">登录</a></li>
+                <li><a href="/signup">注册</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+</div>
+{% block container %}
+    <h1>这是模板</h1>
+{% endblock %}
+<div class="footer">
+    © 2018 扒鸡头条 中国互联网举报中心京ICP证1401号京ICP备125439号-3京公网安备
+</div>
+</body>
+
+</html>
